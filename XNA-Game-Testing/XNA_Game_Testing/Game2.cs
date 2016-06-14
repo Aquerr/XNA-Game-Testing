@@ -15,7 +15,7 @@ namespace Skills
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game2 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -44,7 +44,7 @@ namespace Skills
         //}
 
 
-        public Game1()
+        public Game2()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
