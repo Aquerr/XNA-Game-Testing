@@ -18,6 +18,14 @@ namespace XNA_Game_Testing
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        Texture2D player_texture;
+        Rectangle player;
+
+        //Screen
+        int screenWidth;
+        int screenHeight;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -46,7 +54,13 @@ namespace XNA_Game_Testing
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            player_texture = Content.Load<Texture2D>("player");
+            player = new Rectangle(0, 0, player_texture.Width, player_texture.Height);
+
+            screenWidth = GraphicsDevice.Viewport.Width;
+            screenHeight = GraphicsDevice.Viewport.Height;
+
+
         }
 
         /// <summary>
@@ -69,7 +83,29 @@ namespace XNA_Game_Testing
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                player.X += 6;
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                player.X -= 6;
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                player.Y -= 6;
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                player.Y += 6;
+
+            //granice okna
+            if (player.X <= 0)
+                player.X = 0;
+
+            if (player.X + player_texture.Width >= screenWidth)
+                player.X = screenWidth - player_texture.Width;
+
+            if (player.Y <= 0)
+                player.Y = 0;
+
+            if (player.Y + player_texture.Height >= screenHeight)
+                player.Y = screenHeight - player_texture.Height;
+
+           
 
             base.Update(gameTime);
         }
@@ -82,7 +118,9 @@ namespace XNA_Game_Testing
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            spriteBatch.Draw(player_texture, player, Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
