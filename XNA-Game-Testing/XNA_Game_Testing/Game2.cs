@@ -28,7 +28,7 @@ namespace Skills
 
 
         //Screen
-        int screenWidth=1000;
+        int screenWidth;
         int screenHeight;
 
         //private void FreezeTest(object sender, EventArgs e)
