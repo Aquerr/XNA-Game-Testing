@@ -18,7 +18,6 @@ namespace XNA_Game_Testing
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        int dupa;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
