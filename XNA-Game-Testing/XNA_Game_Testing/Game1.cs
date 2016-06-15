@@ -22,7 +22,7 @@ namespace XNA_Game_Testing
         //Texture2D player_texture;
         //Rectangle player;
 
-        gravity_jump player;
+        Player player;
 
         //Screen
         int screenWidth;
@@ -58,7 +58,7 @@ namespace XNA_Game_Testing
 
             //player_texture = Content.Load<Texture2D>("player");
             //player = new Rectangle(0, 0, player_texture.Width, player_texture.Height);
-            player = new gravity_jump(Content.Load<Texture2D>("player"), new Vector2(50, 50));
+            player = new Player(Content.Load<Texture2D>("player"), new Vector2(50, 50));
 
             screenWidth = GraphicsDevice.Viewport.Width;
             screenHeight = GraphicsDevice.Viewport.Height;

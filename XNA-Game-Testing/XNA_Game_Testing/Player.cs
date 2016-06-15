@@ -8,23 +8,20 @@ using System.Text;
 
 namespace XNA_Game_Testing
 {
-    class gravity_jump
+    class Player
     {
         Texture2D texture;
 
         Vector2 position;
         Vector2 velocity;
 
-        bool jumped;
+        bool hasJumped;
 
-        public int X { get; internal set; }
-        public int Y { get; internal set; }
-
-        public gravity_jump(Texture2D newTexture, Vector2 newPosition)
+        public Player(Texture2D newTexture, Vector2 newPosition)
         {
             texture = newTexture;
             position = newPosition;
-            jumped = true;
+            hasJumped = true;
         }
         public void Update(GameTime gameTime)
         {
@@ -36,23 +33,23 @@ namespace XNA_Game_Testing
             else
                 velocity.X = 0f;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && jumped == false)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && hasJumped == false)
             {
                 position.Y -= 10f;
                 velocity.Y = -5f;
-                jumped = true;
+                hasJumped = true;
             }
             
-            if (jumped == true)
+            if (hasJumped == true)
             {
                 float i = 1;
                 velocity.Y += 0.15f * i;
             }
 
-            if (position.X + texture.Height >= 450)
-                jumped = false;
+            if (position.Y + texture.Height >= 450)
+                hasJumped = false;
 
-            if (jumped == false)
+            if (hasJumped == false)
                 velocity.Y = 0f;
         }
         public void Draw(SpriteBatch spriteBatch)
