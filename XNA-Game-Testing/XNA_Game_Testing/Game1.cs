@@ -19,8 +19,10 @@ namespace XNA_Game_Testing
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D player_texture;
-        Rectangle player;
+        //Texture2D player_texture;
+        //Rectangle player;
+
+        gravity_jump player;
 
         //Screen
         int screenWidth;
@@ -54,8 +56,9 @@ namespace XNA_Game_Testing
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player_texture = Content.Load<Texture2D>("player");
-            player = new Rectangle(0, 0, player_texture.Width, player_texture.Height);
+            //player_texture = Content.Load<Texture2D>("player");
+            //player = new Rectangle(0, 0, player_texture.Width, player_texture.Height);
+            player = new gravity_jump(Content.Load<Texture2D>("player"), new Vector2(50, 50));
 
             screenWidth = GraphicsDevice.Viewport.Width;
             screenHeight = GraphicsDevice.Viewport.Height;
@@ -81,33 +84,33 @@ namespace XNA_Game_Testing
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+                Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                player.X += 6;
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                player.X -= 6;
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                player.Y -= 6;
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                player.Y += 6;
-            if(Keyboard.GetState().IsKeyDown(Keys.Space))
-                player.Y -= 6;
+            //if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            //    player.X += 6;
+            //if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            //    player.X -= 6;
+            //if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            //    player.Y -= 6;
+            //if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            //    player.Y += 6;
+
+            player.Update(gameTime);
 
             //granice okna
-            if (player.X <= 0)
-                player.X = 0;
+            //if (player.X <= 0)
+            //    player.X = 0;
 
-            if (player.X + player_texture.Width >= screenWidth)
-                player.X = screenWidth - player_texture.Width;
+            //if (player.X + player_texture.Width >= screenWidth)
+            //    player.X = screenWidth - player_texture.Width;
 
-            if (player.Y <= 0)
-                player.Y = 0;
+            //if (player.Y <= 0)
+            //    player.Y = 0;
 
-            if (player.Y + player_texture.Height >= screenHeight)
-                player.Y = screenHeight - player_texture.Height;
+            //if (player.Y + player_texture.Height >= screenHeight)
+            //    player.Y = screenHeight - player_texture.Height;
 
-           
+
 
             base.Update(gameTime);
         }
@@ -121,7 +124,7 @@ namespace XNA_Game_Testing
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(player_texture, player, Color.White);
+            player.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
