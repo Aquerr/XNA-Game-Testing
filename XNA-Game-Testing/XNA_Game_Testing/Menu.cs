@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using XNA_Game_Testing.Classes;
 
 namespace XNA_Game_Testing
 {
@@ -27,6 +28,11 @@ namespace XNA_Game_Testing
         }
 
         GameState CurrentGameState = GameState.MainMenu;
+
+        //Screen Adjustments
+        int screenWidth = 800, screenHeight = 600;
+
+        Button btnPlay;
 
         public Menu()
         {
@@ -57,6 +63,15 @@ namespace XNA_Game_Testing
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            graphics.PreferredBackBufferWidth = screenWidth;
+            graphics.PreferredBackBufferHeight = screenHeight;
+            //graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+            IsMouseVisible = true;
+
+            btnPlay = new Button(Content.Load<Texture2D>("Button"), graphics.GraphicsDevice);
+            btnPlay.SetPosition(new Vector2(350, 300));
         }
 
         /// <summary>
@@ -79,7 +94,19 @@ namespace XNA_Game_Testing
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            MouseState mouse = Mouse.GetState();
+
             // TODO: Add your update logic here
+
+            switch (CurrentGameState)
+            {
+                case GameState.MainMenu:
+                    if (btnPlay.isClicked == true) CurrentGameState = GameState.Playing;
+                    btnPlay.Update(mouse);
+                    break;
+                case GameState.Playing:
+                    break;
+            }
 
             base.Update(gameTime);
         }
@@ -93,6 +120,17 @@ namespace XNA_Game_Testing
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            switch (CurrentGameState)
+            {
+                case GameState.MainMenu:
+                 //   spriteBatch.Draw(Content.Load<Texture2D>("MainMenu"), new Rectangle(0, 0, screenWidth, screenHeight),Color.White);
+                    btnPlay.Draw(spriteBatch);
+                    break;
+                case GameState.Playing:
+                    break;
+            }
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
