@@ -11,17 +11,26 @@ namespace XNA_Game_Testing
     class Player
     {
         Texture2D texture;
-
+        Texture2D obstacle_texture;
         Vector2 position;
+        Vector2 position_texture;
         Vector2 velocity;
+        Rectangle recta
 
         bool hasJumped;
 
+        
         public Player(Texture2D newTexture, Vector2 newPosition)
         {
             texture = newTexture;
             position = newPosition;
             hasJumped = true;
+        }
+        public void Obstacle(Texture2D newTexture, Vector2 newPosition)
+        {
+            obstacle_texture = newTexture;
+            position_texture = newPosition;
+            if(texture.Intersects)
         }
         public void Update(GameTime gameTime)
         {
@@ -56,7 +65,6 @@ namespace XNA_Game_Testing
         {
             spriteBatch.Draw(texture, position, Color.White);            
         }
-
 
     }
 }

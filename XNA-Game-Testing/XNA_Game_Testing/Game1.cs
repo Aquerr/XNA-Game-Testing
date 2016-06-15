@@ -19,8 +19,8 @@ namespace XNA_Game_Testing
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //Texture2D player_texture;
-        //Rectangle player;
+        Texture2D  platform_texture;
+        Rectangle  platform;
 
         Player player;
 
@@ -59,7 +59,8 @@ namespace XNA_Game_Testing
             //player_texture = Content.Load<Texture2D>("player");
             //player = new Rectangle(0, 0, player_texture.Width, player_texture.Height);
             player = new Player(Content.Load<Texture2D>("player"), new Vector2(50, 50));
-
+            platform_texture = Content.Load<Texture2D>("platform");
+            platform = new Rectangle(600, 320, platform_texture.Width, platform_texture.Height);
             screenWidth = GraphicsDevice.Viewport.Width;
             screenHeight = GraphicsDevice.Viewport.Height;
 
@@ -97,6 +98,8 @@ namespace XNA_Game_Testing
 
             player.Update(gameTime);
 
+            
+
             //granice okna
             //if (player.X <= 0)
             //    player.X = 0;
@@ -125,6 +128,7 @@ namespace XNA_Game_Testing
 
             spriteBatch.Begin();
             player.Draw(spriteBatch);
+            spriteBatch.Draw(platform_texture, platform, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
