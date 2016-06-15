@@ -91,6 +91,8 @@ namespace XNA_Game_Testing
                 player.Y -= 6;
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
                 player.Y += 6;
+            if(Keyboard.GetState().IsKeyDown(Keys.Space))
+                player.Y -= 6;
 
             //granice okna
             if (player.X <= 0)
