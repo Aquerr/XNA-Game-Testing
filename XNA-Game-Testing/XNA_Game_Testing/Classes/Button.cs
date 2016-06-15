@@ -34,6 +34,29 @@ namespace XNA_Game_Testing.Classes
             rectangle = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
 
             Rectangle mouseRectangle = new Rectangle(mouse.X, mouse.Y, 1, 1);
+
+            if (mouseRectangle.Intersects(rectangle))
+            {
+                if (colour.A == 255) down = false;
+                if (colour.A == 0) down = false;
+                if (down) colour.A += 3; else colour.A -= 3;
+                if (mouse.LeftButton == ButtonState.Pressed) isClicked = true;
+            }
+            else if (colour.A < 255)
+            {
+                colour.A += 3;
+                isClicked = false;
+            }
+        }
+
+        public void SetPosition(Vector2 newPosition)
+        {
+            position = newPosition;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, rectangle, colour);
         }
     }
 }
