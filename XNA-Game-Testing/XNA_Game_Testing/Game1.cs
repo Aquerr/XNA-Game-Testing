@@ -19,10 +19,13 @@ namespace XNA_Game_Testing
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D  platform_texture;
-        Rectangle  platform;
+        //Texture2D  platform_texture;
+        //Rectangle  platform;
 
         Player player;
+
+        Floor _floor;
+        
 
         //Screen
         int screenWidth;
@@ -59,8 +62,12 @@ namespace XNA_Game_Testing
             //player_texture = Content.Load<Texture2D>("player");
             //player = new Rectangle(0, 0, player_texture.Width, player_texture.Height);
             player = new Player(Content.Load<Texture2D>("player"), new Vector2(50, 50));
-            platform_texture = Content.Load<Texture2D>("platform");
-            platform = new Rectangle(600, 320, platform_texture.Width, platform_texture.Height);
+            
+            _floor = new Floor(Content.Load<Texture2D>("platform"), new Vector2(600, 400));
+
+
+           //platform_texture = (Content.Load<Texture2D>("platform"));
+           //platform = new Rectangle(600, 320, platform_texture.Width, platform_texture.Height);
             screenWidth = GraphicsDevice.Viewport.Width;
             screenHeight = GraphicsDevice.Viewport.Height;
 
@@ -96,6 +103,11 @@ namespace XNA_Game_Testing
             //if (Keyboard.GetState().IsKeyDown(Keys.Down))
             //    player.Y += 6;
 
+            if (_floor.Rectangle.Intersects(player.Rectangle))
+            {
+                _floor._position.Y = player._position.Y-128;
+            }
+
             player.Update(gameTime);
 
             
@@ -128,7 +140,7 @@ namespace XNA_Game_Testing
 
             spriteBatch.Begin();
             player.Draw(spriteBatch);
-            spriteBatch.Draw(platform_texture, platform, Color.White);
+            _floor.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

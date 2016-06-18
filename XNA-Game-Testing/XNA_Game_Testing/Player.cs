@@ -1,50 +1,66 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System.Threading;
 
 namespace XNA_Game_Testing
 {
     class Player
     {
         Texture2D texture;
-        Texture2D obstacle_texture;
-        Vector2 position;
-        Vector2 position_texture;
+      //  Texture2D obstacle_texture;
+        public Vector2 _position;
+       // Vector2 position_texture;
         Vector2 velocity;
-        Rectangle recta
+        Rectangle _rectangle;
+
+        public Vector2 Position { get; set; }
+
+        public Rectangle Rectangle
+        {
+            get { return _rectangle; }
+            set
+            {
+                if (_rectangle != value)
+                {
+                    _rectangle = value;
+                }
+            }
+        }
+
 
         bool hasJumped;
 
-        
         public Player(Texture2D newTexture, Vector2 newPosition)
         {
             texture = newTexture;
-            position = newPosition;
+            _position = newPosition;
             hasJumped = true;
+            _rectangle = new Rectangle((int)_position.X, (int)_position.Y, texture.Width, texture.Height);
+            Rectangle = _rectangle;
+            Position = _position;
         }
-        public void Obstacle(Texture2D newTexture, Vector2 newPosition)
-        {
-            obstacle_texture = newTexture;
-            position_texture = newPosition;
-            if(texture.Intersects)
-        }
+        
         public void Update(GameTime gameTime)
         {
-            position += velocity;
+            _position += velocity;
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                velocity.X = 3f;
+                velocity.X = 4f;
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                velocity.X = -3f;
+                velocity.X = -4f;
             else
                 velocity.X = 0f;
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && hasJumped == false)
             {
-                position.Y -= 10f;
+                _position.Y -= 50f;
                 velocity.Y = -5f;
                 hasJumped = true;
             }
@@ -55,15 +71,16 @@ namespace XNA_Game_Testing
                 velocity.Y += 0.15f * i;
             }
 
-            if (position.Y + texture.Height >= 450)
+            if (_position.Y + texture.Height >= 450)
                 hasJumped = false;
 
             if (hasJumped == false)
                 velocity.Y = 0f;
         }
+        
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, Color.White);            
+            spriteBatch.Draw(texture, _position, Color.White);            
         }
 
     }
