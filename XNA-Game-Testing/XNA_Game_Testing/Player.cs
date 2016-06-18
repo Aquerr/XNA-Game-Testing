@@ -20,6 +20,7 @@ namespace XNA_Game_Testing
        // Vector2 position_texture;
         Vector2 velocity;
         Rectangle _rectangle;
+        Floor _floor;
 
         public Vector2 Position { get; set; }
 
@@ -46,6 +47,7 @@ namespace XNA_Game_Testing
             _rectangle = new Rectangle((int)_position.X, (int)_position.Y, texture.Width, texture.Height);
             Rectangle = _rectangle;
             Position = _position;
+            _floor = new Floor(Content.Load<Texture2D>("platform"));
         }
         
         public void Update(GameTime gameTime)
@@ -76,6 +78,10 @@ namespace XNA_Game_Testing
 
             if (hasJumped == false)
                 velocity.Y = 0f;
+            if (_rectangle.Intersects(Floor.Rectangle)
+            {
+                _rectangle.Y =
+            }
         }
         
         public void Draw(SpriteBatch spriteBatch)
