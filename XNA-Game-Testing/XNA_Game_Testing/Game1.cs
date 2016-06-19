@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+using System.Collections.Generic;
 
-namespace XNA_Game_Testing
+namespace Ridiculous
 {
     /// <summary>
     /// This is the main type for your game
@@ -19,17 +13,9 @@ namespace XNA_Game_Testing
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //Texture2D  platform_texture;
-        //Rectangle  platform;
+        Character player;
 
-        Player player;
-
-        Floor _floor;
-        
-
-        //Screen
-        int screenWidth;
-        int screenHeight;
+        List<Platform> platforms = new List<Platform>();
 
         public Game1()
         {
@@ -37,12 +23,6 @@ namespace XNA_Game_Testing
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -59,19 +39,11 @@ namespace XNA_Game_Testing
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //player_texture = Content.Load<Texture2D>("player");
-            //player = new Rectangle(0, 0, player_texture.Width, player_texture.Height);
-            player = new Player(Content.Load<Texture2D>("player"), new Vector2(50, 50));
-            
-            _floor = new Floor(Content.Load<Texture2D>("platform"), new Vector2(600, 400));
+            player = new Character(Content.Load<Texture2D>("playerIMG"), new Vector2(50, 50));
 
-
-           //platform_texture = (Content.Load<Texture2D>("platform"));
-           //platform = new Rectangle(600, 320, platform_texture.Width, platform_texture.Height);
-            screenWidth = GraphicsDevice.Viewport.Width;
-            screenHeight = GraphicsDevice.Viewport.Height;
-
-
+            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(30, 400)));
+            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(350, 300)));
+            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(700, 350)));
         }
 
         /// <summary>
@@ -90,42 +62,16 @@ namespace XNA_Game_Testing
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            IsMouseVisible = true;
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            //    player.X += 6;
-            //if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            //    player.X -= 6;
-            //if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            //    player.Y -= 6;
-            //if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            //    player.Y += 6;
-
-            if (_floor.Rectangle.Intersects(player.Rectangle))
-            {
-                _floor._position.Y = player._position.Y-128;
-            }
-
-            player.Update(gameTime);
-
-            
-
-            //granice okna
-            //if (player.X <= 0)
-            //    player.X = 0;
-
-            //if (player.X + player_texture.Width >= screenWidth)
-            //    player.X = screenWidth - player_texture.Width;
-
-            //if (player.Y <= 0)
-            //    player.Y = 0;
-
-            //if (player.Y + player_texture.Height >= screenHeight)
-            //    player.Y = screenHeight - player_texture.Height;
-
-
+            foreach (Platform platform in platforms)
+                if (player.rectangle.isOnTopOf(platform.rectangle))
+                {
+                    player.velocity.Y = 0f;
+                    player.hasJumped = false;
+                }
 
             base.Update(gameTime);
         }
@@ -139,11 +85,24 @@ namespace XNA_Game_Testing
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+            foreach (Platform platform in platforms)
+                platform.Draw(spriteBatch);
             player.Draw(spriteBatch);
-            _floor.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
+    }
+}
+
+static class RectangleHelper
+{
+    const int penetrationMargin = 5;
+    public static bool isOnTopOf(this Rectangle r1, Rectangle r2)
+    {
+        return (r1.Bottom >= r2.Top - penetrationMargin &&
+            r1.Bottom <= r2.Top + 1 &&
+            r1.Right >= r2.Left + 5 &&
+            r1.Left <= r2.Right - 5);
     }
 }
