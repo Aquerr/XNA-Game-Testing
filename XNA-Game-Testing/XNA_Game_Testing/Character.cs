@@ -37,19 +37,26 @@ namespace Ridiculous
                 velocity.Y = -5f;
                 hasJumped = true;
             }
-            float i = 1;
-            velocity.Y += 0.15f * i;
-
+            if (hasJumped == true)
+            {
+                float i = 1;
+                velocity.Y += 0.15f * i;
+            }
+            
             if (position.Y + texture.Height >= 450)
                 hasJumped = false;
 
             if (hasJumped == false)
                 velocity.Y = 0f;
         }
+        public void Obstacle()
+        {
 
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rectangle, Color.White);
         }
+
     }
 }

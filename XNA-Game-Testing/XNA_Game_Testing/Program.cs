@@ -1,6 +1,6 @@
 using System;
 
-namespace XNA_Game_Testing
+namespace Ridiculous
 {
 #if WINDOWS || XBOX
     static class Program

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNA_Game_Testing", "XNA-Game-Testing\XNA_Game_Testing\XNA_Game_Testing.csproj", "{2CA4E8C9-49EF-4141-94A8-30F2D6BEEC82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ridiculous", "XNA-Game-Testing\XNA_Game_Testing\Ridiculous.csproj", "{2CA4E8C9-49EF-4141-94A8-30F2D6BEEC82}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "XNA_Game_TestingContent", "XNA-Game-Testing\XNA_Game_TestingContent\XNA_Game_TestingContent.contentproj", "{5BB8BEAA-3E6D-4E00-9D46-F4B9076BB1C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNA_Game_TestingContent", "XNA-Game-Testing\XNA_Game_TestingContent\XNA_Game_TestingContent.contentproj", "{5BB8BEAA-3E6D-4E00-9D46-F4B9076BB1C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

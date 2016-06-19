@@ -39,11 +39,11 @@ namespace Ridiculous
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player = new Character(Content.Load<Texture2D>("playerIMG"), new Vector2(50, 50));
+            player = new Character(Content.Load<Texture2D>("playerIMG"), new Vector2(50, 100));
 
             platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(30, 400)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(350, 300)));
-            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(700, 350)));
+            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(600, 350)));
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Ridiculous
                     player.velocity.Y = 0f;
                     player.hasJumped = false;
                 }
-
+            player.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -86,7 +86,7 @@ namespace Ridiculous
 
             spriteBatch.Begin();
             foreach (Platform platform in platforms)
-                platform.Draw(spriteBatch);
+            platform.Draw(spriteBatch);
             player.Draw(spriteBatch);
             spriteBatch.End();
 
