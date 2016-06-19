@@ -14,7 +14,7 @@ namespace XNA_Game_Testing.Classes
         Vector2 position;
         Rectangle rectangle;
 
-        Color colour = new Color(255, 255, 255, 255);
+        Color color = new Color(255, 255, 255, 255);
 
         public Vector2 size;
 
@@ -23,7 +23,7 @@ namespace XNA_Game_Testing.Classes
 
             texture = newTexture;
 
-            size = new Vector2(graphics.Viewport.Width / 8, graphics.Viewport.Height / 30);
+            size = new Vector2(graphics.Viewport.Width / 8, graphics.Viewport.Height / 15);
 
         }
 
@@ -37,14 +37,15 @@ namespace XNA_Game_Testing.Classes
 
             if (mouseRectangle.Intersects(rectangle))
             {
-                if (colour.A == 255) down = false;
-                if (colour.A == 0) down = false;
-                if (down) colour.A += 3; else colour.A -= 3;
+                if (color.A > 155) color.A -= 20;
+              //  if (color.A == 255) down = false;
+              //  if (color.A == 0) down = false;
+              //  if (down) color.A += 10; else color.A -= 10;
                 if (mouse.LeftButton == ButtonState.Pressed) isClicked = true;
             }
-            else if (colour.A < 255)
+            else if (color.A < 255)
             {
-                colour.A += 3;
+                color.A += 10;
                 isClicked = false;
             }
         }
@@ -56,7 +57,7 @@ namespace XNA_Game_Testing.Classes
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rectangle, colour);
+            spriteBatch.Draw(texture, rectangle, color);
         }
     }
 }
