@@ -11,6 +11,7 @@ namespace Ridiculous
         public Vector2 velocity;
         public bool hasJumped;
         public Rectangle rectangle;
+        int jump=1;
 
         public Character(Texture2D newTexture, Vector2 newPosition)
         {
@@ -30,21 +31,29 @@ namespace Ridiculous
                 velocity.X = -3f;
             else
                 velocity.X = 0f;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && hasJumped == false)
+            // do zrobienia double jump
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) && hasJumped == false)
             {
-                position.Y -= 10f;
-                velocity.Y = -5f;
+                position.Y -= 1f;
+                velocity.Y = -7f;
                 hasJumped = true;
+                jump++;
             }
             if (hasJumped == true)
             {
                 float i = 1;
                 velocity.Y += 0.15f * i;
             }
-            
-            if (position.Y + texture.Height >= 450)
+
+            if (position.Y + texture.Height >= 475)
+            {
                 hasJumped = false;
+            }
+            if (jump == 3)
+            {
+                hasJumped = false;
+
+            }
 
             if (hasJumped == false)
                 velocity.Y = 0f;

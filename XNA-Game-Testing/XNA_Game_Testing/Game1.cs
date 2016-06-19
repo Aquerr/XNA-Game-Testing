@@ -42,7 +42,7 @@ namespace Ridiculous
             player = new Character(Content.Load<Texture2D>("playerIMG"), new Vector2(50, 100));
 
             platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(30, 400)));
-            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(350, 300)));
+            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(300, 300)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(600, 350)));
         }
 
