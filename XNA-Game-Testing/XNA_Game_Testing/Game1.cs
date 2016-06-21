@@ -16,10 +16,15 @@ namespace Ridiculous
         Character player;
 
         List<Platform> platforms = new List<Platform>();
+       
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferWidth = 1360;
             Content.RootDirectory = "Content";
         }
 
@@ -39,11 +44,12 @@ namespace Ridiculous
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player = new Character(Content.Load<Texture2D>("playerIMG"), new Vector2(50, 100));
+            player = new Character(Content.Load<Texture2D>("playerIMG"), new Vector2(350, 600));
 
-            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(30, 400)));
-            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(300, 300)));
-            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(600, 350)));
+            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(30, 550)));
+            platforms.Add(new Platform(Content.Load<Texture2D>("smallplatformIMG"), new Vector2(450, 600)));
+            platforms.Add(new Platform(Content.Load<Texture2D>("platformIMG"), new Vector2(600, 500)));
+            platforms.Add(new Platform(Content.Load<Texture2D>("groundIMG"), new Vector2(0, 728)));
         }
 
         /// <summary>

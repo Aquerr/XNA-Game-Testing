@@ -35,28 +35,23 @@ namespace Ridiculous
             if (Keyboard.GetState().IsKeyDown(Keys.Up) && hasJumped == false)
             {
                 position.Y -= 1f;
-                velocity.Y = -7f;
+                velocity.Y = -11f;
                 hasJumped = true;
-                jump++;
+
             }
             if (hasJumped == true)
             {
-                float i = 1;
-                velocity.Y += 0.15f * i;
+                velocity.Y += 0.20f * 1.2f;
             }
 
-            if (position.Y + texture.Height >= 475)
+            if (position.Y + texture.Height >= 728)
             {
                 hasJumped = false;
-            }
-            if (jump == 3)
-            {
-                hasJumped = false;
-
             }
 
             if (hasJumped == false)
                 velocity.Y = 0f;
+            
         }
         public void Obstacle()
         {
